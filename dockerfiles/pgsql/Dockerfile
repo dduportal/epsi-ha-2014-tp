@@ -17,7 +17,5 @@ USER postgres
 
 RUN  /usr/lib/postgresql/9.3/bin/initdb -D /app/data/
 
-USER root
-
 EXPOSE 5432
-
+CMD ["/usr/lib/postgresql/9.3/bin/postgres","--config-file=/app/conf/postgresql.conf"]
