@@ -4,17 +4,20 @@ MAINTAINER damien.duportal@gmail.com
 RUN apt-get update && apt-get install -y nano wget dialog net-tools
 RUN mkdir /app
 
-RUN apt-get install -y postgresql
+RUN apt-get install -y postgresql-9.3
 
-ADD pg_hba.conf /etc/postgresql/9.3/main/
-ADD postgresql.conf /etc/postgresql/9.3/main/
-RUN chown postgres /app
-RUN chmod 750 /app
+RUN mkdir -p /app/conf /app/data
+
+ADD postgresql.conf /app/conf/
+ADD pg_hba.conf /app/conf/
+
+RUN chown -R postgres:postgres /app
 
 USER postgres
-RUN /usr/lib/postgresql/9.3/bin/initdb -D /app
+
+RUN  /usr/lib/postgresql/9.3/bin/initdb -D /app/data/
+
+USER root
 
 EXPOSE 5432
-
-CMD /usr/lib/postgresql/9.3/bin/postgres -D /app
 
