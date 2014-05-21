@@ -1,7 +1,7 @@
-FROM debian:jessie
+FROM debian:wheezy
 MAINTAINER damien.duportal@gmail.com
 
-RUN apt-get update && apt-get install -y nano wget dialog net-tools
+RUN apt-get update && apt-get install -y nano wget dialog net-tools procps inetutils-telnet vim curl
 RUN mkdir /app
 
 RUN apt-get install -y nginx-full

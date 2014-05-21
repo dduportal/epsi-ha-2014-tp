@@ -1,10 +1,10 @@
-FROM debian:jessie
+FROM debian:wheezy
 MAINTAINER damien.duportal@gmail.com
 
-RUN apt-get update && apt-get install -y nano wget dialog net-tools
+RUN apt-get update && apt-get install -y nano wget dialog net-tools procps inetutils-telnet vim curl
 RUN mkdir /app
 
-RUN apt-get install -y postgresql-9.3
+RUN apt-get install -y postgresql-9.1
 
 RUN mkdir -p /app/conf /app/data
 
@@ -15,7 +15,7 @@ RUN chown -R postgres:postgres /app
 
 USER postgres
 
-RUN  /usr/lib/postgresql/9.3/bin/initdb -D /app/data/
+RUN  /usr/lib/postgresql/9.1/bin/initdb -D /app/data/
 
 EXPOSE 5432
-CMD ["/usr/lib/postgresql/9.3/bin/postgres","--config-file=/app/conf/postgresql.conf"]
+CMD ["/usr/lib/postgresql/9.1/bin/postgres","--config-file=/app/conf/postgresql.conf"]
